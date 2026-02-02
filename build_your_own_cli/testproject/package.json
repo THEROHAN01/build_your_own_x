@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "tool": "file:../tool"
+  "tool" :{
+    "port" : 9999
   }
+  
 }

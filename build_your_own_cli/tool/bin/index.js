@@ -1,26 +1,27 @@
 #!/usr/bin/env node
 const arg = require('arg');
+const chalk = require('chalk').default;
+const path = require('path');
 
-try {		const args = arg({
-			'--start': Boolean,
-			'--build': Boolean
-		});
+try {
+  const args = arg({
+    '--start': Boolean,
+    '--build': Boolean,
+  });
 
-		if ( args['--start']){
-			console.log("starting the application")
-		};
-} catch (error) {
-	console.log(error.message);
-	console.log();
-	usage();
-
-} // try catch block to catch the
-
-
-
+  if (args['--start']) {
+    const pkg = require(path.join(process.cwd(), 'package.json'));
+    // TODO: do something with pkg
+    console.log(chalk.bgCyanBright('starting the app'));
+  }
+} catch (e) {
+  console.log(chalk.yellow(e.message));
+  console.log();
+  usage();
+}
 
 function usage() {
-  console.log(`tool [CMD]
-  --start\tStarts the app
-  --build\tBuilds the app`);
+  console.log(`${chalk.whiteBright('tool [CMD]')}
+  ${chalk.greenBright('--start')}\tStarts the app
+  ${chalk.greenBright('--build')}\tBuilds the app`);
 }
