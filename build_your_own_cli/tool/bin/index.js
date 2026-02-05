@@ -3,6 +3,9 @@ const arg = require('arg');
 const chalk = require('chalk').default;
 const path = require('path');
 const pkgUp = require('pkg-up');
+const getConfig = require('../src/config/config-mgr');
+const start = require('../src/commands/start');
+
 
 try {
   const args = arg({
@@ -11,6 +14,11 @@ try {
   });
 
   if (args['--start']) {
+
+    const config = getConfig();
+    start(config);
+
+
     const pkgPath = pkgUp.sync({cwd: process.cwd()});
     const pkg = require(pkgPath);
 
