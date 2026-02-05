@@ -2,6 +2,7 @@
 const arg = require('arg');
 const chalk = require('chalk').default;
 const path = require('path');
+const pkgUp = require('pkg-up');
 
 try {
   const args = arg({
@@ -10,7 +11,15 @@ try {
   });
 
   if (args['--start']) {
-    const pkg = require(path.join(process.cwd(), 'package.json'));
+    const pkgPath = pkgUp.sync({cwd: process.cwd()});
+    const pkg = require(pkgPath);
+
+    if(pkg.tool){
+      console.log(chalk.bgGreenBright(`starting the app on port ${pkg.tool.port}`));
+    }else{
+      console.log(chalk.bgRedBright('no tool config found'));
+    }
+
     // TODO: do something with pkg
     console.log(chalk.bgCyanBright('starting the app'));
   }
